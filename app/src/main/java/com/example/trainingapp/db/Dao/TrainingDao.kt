@@ -8,9 +8,12 @@ import com.example.trainingapp.db.Entity.Training
 @Dao
 interface TrainingDao {
 
-    @Insert
+  @Insert
   suspend  fun insert(training:Training):Long
 
     @Query("SELECT*FROM Training WHERE id = :id")
     fun getTraining(id:Long):Training
+
+    @Query("SELECT*FROM Training WHERE name = :name")
+    fun checkName(name:String):List<Training>
 }

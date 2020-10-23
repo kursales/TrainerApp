@@ -6,31 +6,14 @@
     app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.trainingapp.tuneTraining.podhodFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" >
-        <action
-            android:id="@+id/action_blankFragment_to_countFragment"
-            app:destination="@id/countFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/countFragment"
-        android:name="com.example.trainingapp.tuneTraining.CountFragment"
-        android:label="fragment_count"
-        tools:layout="@layout/fragment_count" />
-    <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.trainingapp.mainFragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_nameTrainingFragment"
-            app:destination="@id/nameTrainingFragment" />
     </fragment>
     <fragment
         android:id="@+id/nameTrainingFragment"
-        android:name="com.example.trainingapp.createTraining.NameTrainingFragment"
+        android:name="com.example.trainingapp.trainingName.NameTrainingFragment"
         android:label="fragment_name_training"
         tools:layout="@layout/fragment_name_training" >
         <action
@@ -40,5 +23,21 @@
     <fragment
         android:id="@+id/exerciseListFragment"
         android:name="com.example.trainingapp.createTraining.ExerciseListFragment"
-        android:label="ExerciseListFragment" />
+        android:label="ExerciseListFragment" >
+
+        <action
+            android:id="@+id/action_exerciseListFragment_to_podhodFragment"
+            app:destination="@id/podhodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/queueFragment"
+        android:name="com.example.trainingapp.queue.QueueFragment"
+        android:label="fragment_queue"
+        tools:layout="@layout/fragment_queue" />
+    <fragment
+        android:id="@+id/podhodFragment"
+        android:name="com.example.trainingapp.tuneTraining.PodhodFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
+
 </navigation>

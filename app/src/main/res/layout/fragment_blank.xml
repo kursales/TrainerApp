@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tuneTraining.podhodFragment"
+    tools:context=".tuneTraining.PodhodFragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,14 +35,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Count" />
-
-    <EditText
-        android:id="@+id/editPodhod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Podhod" />
 
     <LinearLayout
         android:layout_width="match_parent"

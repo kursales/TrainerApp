@@ -1,6 +1,5 @@
 package com.example.trainingapp.createTraining
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import com.example.trainingapp.db.Database
 import com.example.trainingapp.db.Entity.Exercise
 import com.example.trainingapp.db.Entity.ExerciseList
 import com.example.trainingapp.db.Entity.Training
-import com.example.trainingapp.tuneTraining.TuneActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +26,7 @@ class ExerciseListFragment : Fragment(), View.OnClickListener {
     lateinit var exerciseList: ArrayList<ExerciseList>
     lateinit var nextStep: Button
     lateinit var db: Database
+    var trainingId = 0L
 
 
     override fun onCreateView(
@@ -60,13 +59,15 @@ class ExerciseListFragment : Fragment(), View.OnClickListener {
         CoroutineScope(Dispatchers.IO).launch{
             val trainingDao = db.trainingDao()
             val exerciseDao = db.exerciseDao()
-            val training = Training("training")
-            training.id = trainingDao.insert(training)
+            trainingId = requireArguments().getLong("id")
+            val training = trainingDao.getTraining(trainingId)
+            val bundle = Bundle()
+            bundle.putLong("id",trainingId)
             adapter.chooseList.forEach {
                 exerciseDao.insert(Exercise(it.id,training.id,0,0))
             }
             withContext(Dispatchers.Main) {
-         nextStep.findNavController().navigate(R.id.exerciseListFragment)
+         nextStep.findNavController().navigate(R.id.podhodFragment, bundle)
             }
         }
     }

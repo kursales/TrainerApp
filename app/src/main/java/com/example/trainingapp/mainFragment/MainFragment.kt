@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(), View.OnClickListener {
     lateinit var createtraining:Button
+    lateinit var chooseTraining : Button
 
 
     override fun onCreateView(
@@ -25,6 +26,9 @@ class MainFragment : Fragment(), View.OnClickListener {
        val view = inflater.inflate(R.layout.fragment_main, container, false)
         createtraining = view.findViewById(R.id.createTraining)
         createtraining.setOnClickListener(this)
+        createtraining = view.findViewById(R.id.chooseTraining)
+        createtraining.setOnClickListener(this)
+     //   downloadData()
         return view
     }
 
@@ -44,6 +48,8 @@ class MainFragment : Fragment(), View.OnClickListener {
             R.id.createTraining -> {
                 view.findNavController().navigate(R.id.nameTrainingFragment)
             }
+            R.id.chooseTraining -> {
+           }
         }
     }
 
