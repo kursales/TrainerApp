@@ -14,7 +14,8 @@ class QueueHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
     val image = itemView.findViewById<ImageView>(R.id.queueImage)
     val name = itemView.findViewById<TextView>(R.id.queueName)
 
-    fun bind(exerciseList: ExerciseList){
+    fun bind(exerciseList: Exercise){
+
         name.text = exerciseList.name
 
     }

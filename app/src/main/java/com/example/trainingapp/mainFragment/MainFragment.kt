@@ -28,7 +28,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         createtraining.setOnClickListener(this)
         createtraining = view.findViewById(R.id.chooseTraining)
         createtraining.setOnClickListener(this)
-     //   downloadData()
+      downloadData()
         return view
     }
 

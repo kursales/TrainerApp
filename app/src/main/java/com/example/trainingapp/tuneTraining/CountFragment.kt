@@ -53,12 +53,11 @@ class PodhodFragment : Fragment(), View.OnClickListener {
             exerciseDao = db.exerciseDao()
             exerciseListDao = db.exerciseListDao()
             exerciseList = exerciseDao.getTraining(trainingId) as ArrayList<Exercise>
-            val exerciseData = exerciseListDao.getExercise(exerciseList[position].exercise_id)
 
             withContext(Dispatchers.Main) {
                 initializeData(
-                    exerciseData.name,
-                    exerciseData.image,
+                    exerciseList[position].name,
+                    exerciseList[position].image,
                     exerciseList[position].count,
                     exerciseList[position].podhod
                 )
@@ -120,11 +119,10 @@ class PodhodFragment : Fragment(), View.OnClickListener {
 
     fun donloadData(position: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val exerciseData = exerciseListDao.getExercise(exerciseList[position].exercise_id)
             withContext(Dispatchers.Main) {
                 initializeData(
-                    exerciseData.name,
-                    exerciseData.image,
+                    exerciseList[position].name,
+                    exerciseList[position].image,
                     exerciseList[position].count,
                     exerciseList[position].podhod
                 )

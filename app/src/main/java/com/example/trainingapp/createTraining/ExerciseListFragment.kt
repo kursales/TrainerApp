@@ -64,7 +64,7 @@ class ExerciseListFragment : Fragment(), View.OnClickListener {
             val bundle = Bundle()
             bundle.putLong("id",trainingId)
             adapter.chooseList.forEach {
-                exerciseDao.insert(Exercise(it.id,training.id,0,0))
+                exerciseDao.insert(Exercise(it.image,it.name,training.id,0,0))
             }
             withContext(Dispatchers.Main) {
          nextStep.findNavController().navigate(R.id.podhodFragment, bundle)
