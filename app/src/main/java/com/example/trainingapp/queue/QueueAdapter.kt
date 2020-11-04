@@ -8,7 +8,7 @@ import com.example.trainingapp.R
 import com.example.trainingapp.db.Entity.Exercise
 import com.example.trainingapp.db.Entity.ExerciseList
 
-public class QueueAdapter(val adapterList:ArrayList<Exercise>): RecyclerView.Adapter<QueueHolder>() {
+public class QueueAdapter(val adapterList:ArrayList<Exercise>,val callback: (Exercise) -> Unit): RecyclerView.Adapter<QueueHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QueueHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.queue_item, parent,false)
         return QueueHolder(view)
@@ -36,6 +36,7 @@ public class QueueAdapter(val adapterList:ArrayList<Exercise>): RecyclerView.Ada
         notifyItemMoved(from, to)
     }
     fun onDismiss(position: Int){
+        callback.invoke(adapterList[position])
         adapterList.removeAt(position)
         notifyItemRemoved(position)
     }

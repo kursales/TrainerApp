@@ -7,18 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import com.example.trainingapp.BackPressedListener
+import com.example.trainingapp.Dialogs
 import com.example.trainingapp.R
+import com.example.trainingapp.core.Keys
+import com.example.trainingapp.core.Prefs
+import com.example.trainingapp.core.TrainingApp
 import com.example.trainingapp.db.Database
 import com.example.trainingapp.db.Entity.Training
+import com.example.trainingapp.db.repositories.NameTrainingRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class NameTrainingFragment : Fragment(), View.OnClickListener {
+class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListener {
     lateinit var nextStep: Button
     lateinit var monday:Button
     lateinit var tuesday:Button
@@ -28,6 +36,12 @@ class NameTrainingFragment : Fragment(), View.OnClickListener {
     lateinit var saturday:Button
     lateinit var sunday:Button
     lateinit var editName:EditText
+
+    var trainingId: Long? = null
+
+    @Inject
+     lateinit var trainingNameRepository: NameTrainingRepository
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +55,8 @@ class NameTrainingFragment : Fragment(), View.OnClickListener {
         friday = view.findViewById(R.id.friday)
         saturday = view.findViewById(R.id.saturday)
         sunday = view.findViewById(R.id.sunday)
+        editName = view.findViewById(R.id.editTrainingName)
+
         nextStep.setOnClickListener(this)
         monday.setOnClickListener(this)
         tuesday.setOnClickListener(this)
@@ -49,7 +65,8 @@ class NameTrainingFragment : Fragment(), View.OnClickListener {
         friday.setOnClickListener(this)
         saturday.setOnClickListener(this)
         sunday.setOnClickListener(this)
-        editName = view.findViewById(R.id.editTrainingName)
+
+        TrainingApp.component.injectNameFragment(this)
 
         Days.initDays()
         return view
@@ -58,18 +75,21 @@ class NameTrainingFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when(view.id){
             R.id.toExerciseList ->{
+                if (Days.resultDays() != 0)
                 CoroutineScope(Dispatchers.IO).launch {
-                    val db = Database.invoke(requireContext())
-                    val dao = db.trainingDao()
-                        val id = dao.insert(Training(editName.text.toString()))
-                    val bundle = Bundle()
-                    bundle.putLong("id", id)
-                    withContext(Dispatchers.Main){
-                        view.findNavController().navigate(R.id.exerciseListFragment, bundle)
+                    if (trainingNameRepository.checkName(editName.text.toString())) {
+                        trainingId = trainingNameRepository.createTraining(editName.text.toString(), Days.resultDays())
+                        Prefs.put(Keys.TRAINING_ID, trainingId!!)
+                        withContext(Dispatchers.Main) {
+                            view.findNavController().navigate(R.id.exerciseListFragment)
+                        }
+                    }else{
+                        Toast.makeText(view.context,"a workout with the same name already exists", Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
+                else{
+                    Toast.makeText(view.context, "Choose training days or input training name", Toast.LENGTH_SHORT).show()
+                }
             }
             R.id.monday ->{
                 if(Days.changeDays(0)){
@@ -126,6 +146,20 @@ class NameTrainingFragment : Fragment(), View.OnClickListener {
                     sunday.setBackgroundResource(R.color.dayNotSelected)
                 }
 
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        Dialogs.cancelCreateTraining(requireContext()){
+                if (trainingId != null) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                    trainingNameRepository.delete(trainingNameRepository.getTraining(trainingId!!))
+                    withContext(Dispatchers.Main){
+                        val fragmentManager = requireActivity().supportFragmentManager
+                        fragmentManager.popBackStack()
+                    }
+                }
             }
         }
     }

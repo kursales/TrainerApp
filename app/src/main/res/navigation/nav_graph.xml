@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/nameTrainingFragment"
-        android:name="com.example.trainingapp.trainingName.NameTrainingFragment"
+        android:name="com.example.trainingapp.trainingName.TrainingNameFragment"
         android:label="fragment_name_training"
         tools:layout="@layout/fragment_name_training" >
         <action
@@ -22,12 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseListFragment"
-        android:name="com.example.trainingapp.createTraining.ExerciseListFragment"
+        android:name="com.example.trainingapp.chooseExercises.ChooseExercisesFragment"
         android:label="ExerciseListFragment" >
 
-        <action
-            android:id="@+id/action_exerciseListFragment_to_podhodFragment"
-            app:destination="@id/podhodFragment" />
     </fragment>
     <fragment
         android:id="@+id/queueFragment"
@@ -35,9 +32,14 @@
         android:label="fragment_queue"
         tools:layout="@layout/fragment_queue" />
     <fragment
-        android:id="@+id/podhodFragment"
-        android:name="com.example.trainingapp.tuneTraining.PodhodFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        android:id="@+id/chooseTrainingFragment"
+        android:name="com.example.trainingapp.chooseTraining.ChooseTrainingFragment"
+        android:label="fragment_choose_training"
+        tools:layout="@layout/fragment_choose_training" />
+    <fragment
+        android:id="@+id/trainingFragment"
+        android:name="com.example.trainingapp.training.TrainingFragment"
+        android:label="fragment_training"
+        tools:layout="@layout/fragment_training" />
 
 </navigation>

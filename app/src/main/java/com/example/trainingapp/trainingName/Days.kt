@@ -15,14 +15,14 @@ class Days() {
             return days[id]
         }
         fun resultDays():Int {
-            var sum = 0.0
+            var sum = 0
             for (i in 0..6) {
                 if(days[i]){
-                    sum += 2.0.pow(i)
+                    sum += 2.0.pow(i).toInt()
                 }
 
             }
-            return sum.toInt()
+            return sum
         }
 
     }

@@ -4,17 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".queue.QueueFragment">
+    tools:context=".chooseTraining.ChooseTrainingFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/queueRecycler"
+        android:id="@+id/trainingList"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
-
-    <Button
-        android:id="@+id/saveQueue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Сохранить" />
+        android:layout_height="match_parent" />
 </LinearLayout>

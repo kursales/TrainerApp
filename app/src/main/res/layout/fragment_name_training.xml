@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".trainingName.NameTrainingFragment">
+    tools:context=".trainingName.TrainingNameFragment">
 
 
     <EditText
@@ -26,6 +26,7 @@
             android:id="@+id/monday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="пн" />
 
@@ -33,6 +34,7 @@
             android:id="@+id/tuesday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="вт" />
 
@@ -40,6 +42,7 @@
             android:id="@+id/wednesday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="ср" />
 
@@ -47,12 +50,14 @@
             android:id="@+id/thursday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="чт" />
         <Button
             android:id="@+id/friday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="пт" />
 
@@ -60,6 +65,7 @@
             android:id="@+id/sunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="сб" />
 
@@ -67,6 +73,7 @@
             android:id="@+id/saturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/dayNotSelected"
             android:layout_weight="1"
             android:text="вс" />
     </LinearLayout>
