@@ -38,6 +38,17 @@ object Dialogs {
             }
             .setNegativeButton("No") { dialog, button ->
                 dialog.cancel()
-            }.create()
+            }.show()
+    }
+    fun CreateExercise(context: Context, callback: () -> Unit){
+        val dialog = AlertDialog.Builder(context)
+            .setTitle("Create Exercise")
+            .setMessage("do you want to create another exercise?")
+            .setPositiveButton("Yes") { dialog, button ->
+                callback.invoke()
+            }
+            .setNegativeButton("No") { dialog, button ->
+                dialog.cancel()
+            }.show()
     }
 }

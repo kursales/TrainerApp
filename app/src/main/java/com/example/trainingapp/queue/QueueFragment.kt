@@ -6,20 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trainingapp.Dialogs
 import com.example.trainingapp.R
 import com.example.trainingapp.core.Keys
 import com.example.trainingapp.core.Prefs
 import com.example.trainingapp.core.TrainingApp
-import com.example.trainingapp.db.Dao.ExerciseDao
-import com.example.trainingapp.db.Database
 import com.example.trainingapp.db.Entity.Exercise
-import com.example.trainingapp.db.Entity.ExerciseList
 import com.example.trainingapp.db.repositories.ExerciseRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,9 +47,12 @@ class QueueFragment : Fragment() {
 
         TrainingApp.component.injectQueueFragment(this)
         trainingId = Prefs.getLong(Keys.TRAINING_ID)
+        CoroutineScope(Dispatchers.IO).launch {
+            getTraining()
+            createRecycler()
+        }
 
-        getTraining()
-        createRecycler()
+
 
         saveButton.setOnClickListener { button ->
             CoroutineScope(Dispatchers.IO).launch {
@@ -67,36 +67,48 @@ class QueueFragment : Fragment() {
         return view
     }
 
-    fun getTraining() {
-        CoroutineScope(Dispatchers.IO).launch {
-            exerciseList = exerciseRepository.getTraining(trainingId)
-            withContext(Dispatchers.Main) {
-                adapter = QueueAdapter(exerciseList) { exercise ->
+    suspend fun getTraining() {
+        exerciseList = exerciseRepository.getTraining(trainingId)
+        withContext(Dispatchers.Main) {
+            adapter = QueueAdapter(exerciseList, (fun(exercise: Exercise) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    exerciseRepository.deleteExercise(exercise)
+
+                }
+            })) { exercise ->
+                Dialogs.CreateExercise(requireContext()) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        exerciseRepository.deleteExercise(exercise)
+                        val id = exerciseRepository.insert(
+                            Exercise(exercise.image, exercise.name, exercise.training_id, exerciseList.size)
+                        )
+                        exercise.id = id
+                        exercise.queue = exerciseList.size
+                        withContext(Dispatchers.Main) {
+                            adapter.addItem(exercise)
+                        }
                     }
                 }
-
             }
         }
     }
 
-    fun createRecycler() {
-        val manager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = manager
-        val dividerItemDecoration = DividerItemDecoration(requireContext(), manager.orientation)
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        recyclerView.adapter = adapter
-        val callback = DragManageAdapter(
-            adapter,
-            requireContext(),
-            ItemTouchHelper.UP.or(ItemTouchHelper.DOWN),
-            ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)
-        )
-        val helper = ItemTouchHelper(callback)
-        helper.attachToRecyclerView(recyclerView)
+    suspend fun createRecycler() {
+        withContext(Dispatchers.Main) {
+            val manager = LinearLayoutManager(requireContext())
+            recyclerView.layoutManager = manager
+            val dividerItemDecoration = DividerItemDecoration(requireContext(), manager.orientation)
+            recyclerView.addItemDecoration(dividerItemDecoration)
+            recyclerView.adapter = adapter
+            val callback = DragManageAdapter(
+                adapter,
+                requireContext(),
+                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN),
+                ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)
+            )
+            val helper = ItemTouchHelper(callback)
+            helper.attachToRecyclerView(recyclerView)
+        }
     }
-
 }
 
 

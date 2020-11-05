@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trainingapp.Dialogs
 import com.example.trainingapp.R
 import com.example.trainingapp.core.Keys
 import com.example.trainingapp.core.Prefs

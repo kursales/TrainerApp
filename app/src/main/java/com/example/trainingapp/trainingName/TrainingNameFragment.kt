@@ -28,25 +28,25 @@ import javax.inject.Inject
 
 class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListener {
     lateinit var nextStep: Button
-    lateinit var monday:Button
-    lateinit var tuesday:Button
-    lateinit var wednesday:Button
-    lateinit var thursday:Button
-    lateinit var friday:Button
-    lateinit var saturday:Button
-    lateinit var sunday:Button
-    lateinit var editName:EditText
+    lateinit var monday: Button
+    lateinit var tuesday: Button
+    lateinit var wednesday: Button
+    lateinit var thursday: Button
+    lateinit var friday: Button
+    lateinit var saturday: Button
+    lateinit var sunday: Button
+    lateinit var editName: EditText
 
     var trainingId: Long? = null
 
     @Inject
-     lateinit var trainingNameRepository: NameTrainingRepository
+    lateinit var trainingNameRepository: NameTrainingRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_name_training, container, false)
+        val view = inflater.inflate(R.layout.fragment_name_training, container, false)
         nextStep = view.findViewById(R.id.toExerciseList)
         monday = view.findViewById(R.id.monday)
         tuesday = view.findViewById(R.id.tuesday)
@@ -73,96 +73,102 @@ class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListen
     }
 
     override fun onClick(view: View) {
-        when(view.id){
-            R.id.toExerciseList ->{
-                if (Days.resultDays() != 0)
-                CoroutineScope(Dispatchers.IO).launch {
-                    if (trainingNameRepository.checkName(editName.text.toString())) {
-                        trainingId = trainingNameRepository.createTraining(editName.text.toString(), Days.resultDays())
-                        Prefs.put(Keys.TRAINING_ID, trainingId!!)
-                        withContext(Dispatchers.Main) {
-                            view.findNavController().navigate(R.id.exerciseListFragment)
+        when (view.id) {
+            R.id.toExerciseList -> {
+                if (Days.resultDays() != 0) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        if (trainingNameRepository.checkName(editName.text.toString())) {
+                            trainingId = trainingNameRepository.createTraining(
+                                editName.text.toString(),
+                                Days.resultDays()
+                            )
+                            Prefs.put(Keys.TRAINING_ID, trainingId!!)
+                            withContext(Dispatchers.Main) {
+                                view.findNavController().navigate(R.id.exerciseListFragment)
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(view.context, "a workout with the same name already exists", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
-                    }else{
-                        Toast.makeText(view.context,"a workout with the same name already exists", Toast.LENGTH_SHORT).show()
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(view.context, "Choose training days or input training name", Toast.LENGTH_SHORT).show()
                 }
             }
-            R.id.monday ->{
-                if(Days.changeDays(0)){
-                    monday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    monday.setBackgroundResource(R.color.dayNotSelected)
-                }
-
+        R.id.monday ->{
+            if (Days.changeDays(0)) {
+                monday.setBackgroundResource(R.color.daySelected)
+            } else {
+                monday.setBackgroundResource(R.color.dayNotSelected)
             }
-            R.id.tuesday ->{
-                if(Days.changeDays(1)){
-                    tuesday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    tuesday.setBackgroundResource(R.color.dayNotSelected)
-                }
 
+        }
+        R.id.tuesday ->{
+            if (Days.changeDays(1)) {
+                tuesday.setBackgroundResource(R.color.daySelected)
+            } else {
+                tuesday.setBackgroundResource(R.color.dayNotSelected)
             }
-            R.id.wednesday ->{
-                if(Days.changeDays(2)){
-                    wednesday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    wednesday.setBackgroundResource(R.color.dayNotSelected)
-                }
 
+        }
+        R.id.wednesday ->{
+            if (Days.changeDays(2)) {
+                wednesday.setBackgroundResource(R.color.daySelected)
+            } else {
+                wednesday.setBackgroundResource(R.color.dayNotSelected)
             }
-            R.id.thursday ->{
-                if(Days.changeDays(3)){
-                    thursday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    thursday.setBackgroundResource(R.color.dayNotSelected)
-                }
 
+        }
+        R.id.thursday ->{
+            if (Days.changeDays(3)) {
+                thursday.setBackgroundResource(R.color.daySelected)
+            } else {
+                thursday.setBackgroundResource(R.color.dayNotSelected)
             }
-            R.id.friday ->{
-                if(Days.changeDays(4)){
-                    friday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    friday.setBackgroundResource(R.color.dayNotSelected)
-                }
 
+        }
+        R.id.friday ->{
+            if (Days.changeDays(4)) {
+                friday.setBackgroundResource(R.color.daySelected)
+            } else {
+                friday.setBackgroundResource(R.color.dayNotSelected)
             }
-            R.id.saturday ->{
-                if(Days.changeDays(5)){
-                    saturday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    saturday.setBackgroundResource(R.color.dayNotSelected)
-                }
 
-             }
-            R.id.sunday ->{
-                if(Days.changeDays(6)){
-                    sunday.setBackgroundResource(R.color.daySelected)
-                }else{
-                    sunday.setBackgroundResource(R.color.dayNotSelected)
-                }
+        }
+        R.id.saturday ->{
+            if (Days.changeDays(5)) {
+                saturday.setBackgroundResource(R.color.daySelected)
+            } else {
+                saturday.setBackgroundResource(R.color.dayNotSelected)
+            }
 
+        }
+        R.id.sunday ->{
+            if (Days.changeDays(6)) {
+                sunday.setBackgroundResource(R.color.daySelected)
+            } else {
+                sunday.setBackgroundResource(R.color.dayNotSelected)
+            }
+
+        }
+    }
+}
+
+override fun onBackPressed() {
+    Dialogs.cancelCreateTraining(requireContext()) {
+        if (trainingId != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                trainingNameRepository.delete(trainingNameRepository.getTraining(trainingId!!))
+                withContext(Dispatchers.Main) {
+                    val fragmentManager = requireActivity().supportFragmentManager
+                    fragmentManager.popBackStack()
+                }
             }
         }
     }
-
-    override fun onBackPressed() {
-        Dialogs.cancelCreateTraining(requireContext()){
-                if (trainingId != null) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                    trainingNameRepository.delete(trainingNameRepository.getTraining(trainingId!!))
-                    withContext(Dispatchers.Main){
-                        val fragmentManager = requireActivity().supportFragmentManager
-                        fragmentManager.popBackStack()
-                    }
-                }
-            }
-        }
-    }
+}
 
 
 }
