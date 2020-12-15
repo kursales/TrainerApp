@@ -1,10 +1,13 @@
 package com.example.trainingapp.trainingName
 
+import android.app.Activity
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -84,6 +87,8 @@ class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListen
                             )
                             Prefs.put(Keys.TRAINING_ID, trainingId!!)
                             withContext(Dispatchers.Main) {
+                                val keyboard = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                                keyboard.hideSoftInputFromWindow(view.windowToken, 0)
                                 view.findNavController().navigate(R.id.exerciseListFragment)
                             }
                         } else {
@@ -99,57 +104,56 @@ class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListen
             }
         R.id.monday ->{
             if (Days.changeDays(0)) {
-                monday.setBackgroundResource(R.color.daySelected)
+                monday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                monday.setBackgroundResource(R.color.dayNotSelected)
+                monday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
-
         }
         R.id.tuesday ->{
             if (Days.changeDays(1)) {
-                tuesday.setBackgroundResource(R.color.daySelected)
+                tuesday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                tuesday.setBackgroundResource(R.color.dayNotSelected)
+                tuesday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
 
         }
         R.id.wednesday ->{
             if (Days.changeDays(2)) {
-                wednesday.setBackgroundResource(R.color.daySelected)
+                wednesday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                wednesday.setBackgroundResource(R.color.dayNotSelected)
+                wednesday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
 
         }
         R.id.thursday ->{
             if (Days.changeDays(3)) {
-                thursday.setBackgroundResource(R.color.daySelected)
+                thursday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                thursday.setBackgroundResource(R.color.dayNotSelected)
+                thursday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
 
         }
         R.id.friday ->{
             if (Days.changeDays(4)) {
-                friday.setBackgroundResource(R.color.daySelected)
+                friday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                friday.setBackgroundResource(R.color.dayNotSelected)
+                friday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
 
         }
         R.id.saturday ->{
             if (Days.changeDays(5)) {
-                saturday.setBackgroundResource(R.color.daySelected)
+                saturday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                saturday.setBackgroundResource(R.color.dayNotSelected)
+                saturday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
 
         }
         R.id.sunday ->{
             if (Days.changeDays(6)) {
-                sunday.setBackgroundResource(R.color.daySelected)
+                sunday.setBackgroundResource(R.drawable.day_button_background_selected)
             } else {
-                sunday.setBackgroundResource(R.color.dayNotSelected)
+                sunday.setBackgroundResource(R.drawable.day_button_backgroun_unselected)
             }
 
         }

@@ -21,7 +21,7 @@ class QueueHolder(itemView: View, listener: (Int) -> Unit) : RecyclerView.ViewHo
     }
 
     fun bind(exerciseList: Exercise) {
-
+        image.setImageResource(exerciseList.image)
         name.text = exerciseList.name
 
     }

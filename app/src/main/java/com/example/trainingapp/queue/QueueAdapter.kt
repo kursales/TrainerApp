@@ -9,7 +9,8 @@ import com.example.trainingapp.db.Entity.Exercise
 public class QueueAdapter(
     val adapterList: ArrayList<Exercise>,
     val callback: (Exercise) -> Unit,
-    val callback2: (Exercise) -> Unit
+    val callback2: (Exercise) -> Unit,
+    val callback3: () -> Unit
 ) : RecyclerView.Adapter<QueueHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QueueHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.queue_item, parent, false)
@@ -40,6 +41,7 @@ public class QueueAdapter(
             }
         }
         notifyItemMoved(from, to)
+        callback3.invoke()
     }
 
     fun onDismiss(position: Int) {

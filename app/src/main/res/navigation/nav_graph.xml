@@ -41,5 +41,9 @@
         android:name="com.example.trainingapp.training.TrainingFragment"
         android:label="fragment_training"
         tools:layout="@layout/fragment_training" />
+    <dialog
+        android:id="@+id/timerDialog"
+        android:name="com.example.trainingapp.training.TimerDialog"
+        android:label="TimerDialog" />
 
 </navigation>

@@ -16,6 +16,7 @@ class ChooseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     fun bind(exercise: ExerciseList, chooseList:ArrayList<ExerciseList>) {
         name.text =  exercise.name
+        image.setImageResource(exercise.image)
         check.setOnClickListener{
             if(check.isChecked){
                 chooseList.add(exercise)

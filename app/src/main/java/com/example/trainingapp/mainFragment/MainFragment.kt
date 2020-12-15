@@ -46,10 +46,10 @@ class MainFragment : Fragment(), View.OnClickListener {
 
  private fun downloadData() {
         CoroutineScope(Dispatchers.IO).launch {
-            exerciseListRepository.insert(ExerciseList("Отжимания", R.drawable.ic_launcher_foreground))
-            exerciseListRepository.insert(ExerciseList("Приседания", R.drawable.ic_launcher_foreground))
-            exerciseListRepository.insert(ExerciseList("Прыжки", R.drawable.ic_launcher_foreground))
-            exerciseListRepository.insert(ExerciseList("Пресс", R.drawable.ic_launcher_foreground))
+            exerciseListRepository.insert(ExerciseList("Отжимания", R.drawable.otjimaniya))
+            exerciseListRepository.insert(ExerciseList("Приседания", R.drawable.prisedaniya))
+            exerciseListRepository.insert(ExerciseList("Прыжки", R.drawable.prijki))
+            exerciseListRepository.insert(ExerciseList("Пресс", R.drawable.press))
         }
     }
 

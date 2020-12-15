@@ -9,12 +9,13 @@ import kotlin.concurrent.thread
 
 object Dialogs {
 
-    fun timerDialog(context: Context) {
+    fun timerDialog(context: Context,callback: () -> Unit) {
         val dialogBuilder = AlertDialog.Builder(context)
         var time = 10
         val timer = TextView(context)
         val dialog = dialogBuilder.setView(timer)
             .setNegativeButton("Остановить") { dialog, button ->
+                callback.invoke()
                 dialog.cancel()
             }.show()
         CoroutineScope(Dispatchers.IO).launch {
@@ -25,6 +26,7 @@ object Dialogs {
                     timer.text = "00:$time"
                 }
             }
+            callback.invoke()
             dialog.cancel()
         }
     }
