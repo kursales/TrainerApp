@@ -20,6 +20,11 @@ class ExerciseRepository(private val database: Database) {
     suspend fun deleteExercise(exercise: Exercise) {
         dao.delete(exercise)
     }
+    suspend fun updateAll(list: ArrayList<Exercise>){
+        list.forEach {
+            dao.update(it)
+        }
+    }
 
     suspend fun update(exercise: Exercise) {
         dao.update(exercise)

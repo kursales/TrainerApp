@@ -57,29 +57,13 @@ class QueueFragment : Fragment() {
 
 
         saveButton.setOnClickListener { button ->
-            CoroutineScope(Dispatchers.IO).launch {
-//                for (i in 0..adapter.adapterList.size-1) {
-//                    val exercise = adapter.adapterList[i]
-//                    exercise.queue = i
-//                    exerciseRepository.update(exercise)
-//                }
-                withContext(Dispatchers.Main){
-                    logi()
-                    this@QueueFragment.findNavController().navigate(R.id.mainFragment)
 
-                }
-
-
-            }
+                    button.findNavController().navigate(R.id.mainFragment)
         }
 
         return view
     }
-    fun logi(){
-        adapter.adapterList.forEach {
-            Log.d("queue", "${it.queue}")
-        }
-    }
+
 
     suspend fun getTraining() {
         exerciseList = exerciseRepository.getTraining(trainingId)
@@ -92,28 +76,29 @@ class QueueFragment : Fragment() {
             }), (fun(exercise: Exercise) {
                 Dialogs.CreateExercise(requireContext()) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        val id = exerciseRepository.insert(
-                            Exercise(
-                                exercise.image,
-                                exercise.name,
-                                exercise.training_id,
-                                adapter.adapterList.size + 1
-                            )
+                        val exercise1 =    Exercise(
+                            exercise.image,
+                            exercise.name,
+                            exercise.training_id,
+                            adapter.adapterList.size + 1
                         )
-                        exercise.id = id
-                        exercise.queue = adapter.adapterList.size + 1
+                        val id = exerciseRepository.insert(exercise1)
+
+                        exercise1.id = id
                         withContext(Dispatchers.Main) {
-                            adapter.addItem(exercise)
+                            adapter.addItem(exercise1)
                         }
                     }
                 }
             })) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    for (i in 0..adapter.adapterList.size - 1) {
-                        val exercise = adapter.adapterList[i]
-                        exercise.queue = i
-                        exerciseRepository.update(exercise)
+                var i = 0
+                    adapter.adapterList.forEach{
+                        it.queue = i
+                        i++
                     }
+                CoroutineScope(Dispatchers.IO).launch {
+
+                    exerciseRepository.updateAll(adapter.adapterList)
                 }
             }
         }
