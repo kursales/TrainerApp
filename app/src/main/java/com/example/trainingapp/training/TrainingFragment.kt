@@ -105,10 +105,11 @@ class TrainingFragment : Fragment(), View.OnClickListener {
                 if (cursor < traingList.size) {
                     saveData(exercise)
                     cursor++
-
-                    Dialogs.timerDialog(requireContext()){
+                    val dialog = TimerDialog(){
                         initExercise()
                     }
+                    fragmentManager?.let { dialog.show(it, "sdsd") }
+
 
 
 

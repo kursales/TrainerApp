@@ -1,6 +1,7 @@
 package com.example.trainingapp.training
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,10 @@ import kotlinx.android.synthetic.main.timer_dialog.view.*
 import kotlinx.coroutines.*
 import java.util.zip.Inflater
 
-class TimerDialog(): DialogFragment() {
-    lateinit var timer: TextView
+class TimerDialog(val callback:() -> Unit): DialogFragment() {
+    lateinit var txttimer: TextView
     lateinit var stopTimer: Button
+    private var timer: CountDownTimer? = null
     var time = 10
 
     override fun onCreateView(
@@ -28,20 +30,30 @@ class TimerDialog(): DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        timer = view.findViewById(R.id.timer)
+        txttimer = view.findViewById(R.id.timer)
         stopTimer = view.findViewById(R.id.stopTimer)
-        CoroutineScope(Dispatchers.IO).launch {
-            while (time > 0) {
-                time--
-                delay(1000L)
-                withContext(Dispatchers.Main) {
-                    timer.text = "00:$time"
-                }
+        timer = object : CountDownTimer(
+            10 * 1000L,
+            1000L
+        ) {
+            override fun onTick(millisUntilFinished: Long) =
+                setTxt("Отдыхайте: \n${millisUntilFinished / 1000L} сек.")
+
+
+            override fun onFinish() {
+                callback.invoke()
+                dismiss()
             }
-            dismiss()
-        }
+        }.start()
+
         stopTimer.setOnClickListener {
-            dismiss()
-        }
+            callback.invoke()
+            dismiss() }
+
+
+    }
+
+    fun setTxt(name: String) {
+        txttimer.text = name
     }
 }
