@@ -21,6 +21,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/button_backgrounf"
-        android:text="@string/next_step" />
+        android:text="Следующий ход" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

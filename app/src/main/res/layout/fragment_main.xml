@@ -17,7 +17,7 @@
         android:layout_marginLeft="20dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_weight="1"
-        android:text="create Training" />
+        android:text="Создать тренировку" />
 
     <Button
         android:id="@+id/chooseTraining"
@@ -29,7 +29,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/circle_button"
         android:layout_weight="1"
-        android:text="ChooseTraining" />
+        android:text="Выбрать тренировку" />
 
     <Button
         android:id="@+id/statisticTraining"
@@ -41,5 +41,5 @@
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
-        android:text="Statistic" />
+        android:text="Статистика" />
 </androidx.constraintlayout.widget.ConstraintLayout>

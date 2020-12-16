@@ -33,23 +33,23 @@ object Dialogs {
 
     fun cancelCreateTraining(context: Context, callback: () -> Unit) {
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Exit")
-            .setMessage("Cancel create training?")
-            .setPositiveButton("Yes") { dialog, button ->
+            .setTitle("Выход")
+            .setMessage("Отменить создание тренировки?")
+            .setPositiveButton("Да") { dialog, button ->
                 callback.invoke()
             }
-            .setNegativeButton("No") { dialog, button ->
+            .setNegativeButton("Нет") { dialog, button ->
                 dialog.cancel()
             }.show()
     }
     fun CreateExercise(context: Context, callback: () -> Unit){
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Create Exercise")
-            .setMessage("do you want to create another exercise?")
-            .setPositiveButton("Yes") { dialog, button ->
+            .setTitle("Создать упражнение")
+            .setMessage("Хочешь создать еще одно упражнение?")
+            .setPositiveButton("Да") { dialog, button ->
                 callback.invoke()
             }
-            .setNegativeButton("No") { dialog, button ->
+            .setNegativeButton("Нет") { dialog, button ->
                 dialog.cancel()
             }.show()
     }

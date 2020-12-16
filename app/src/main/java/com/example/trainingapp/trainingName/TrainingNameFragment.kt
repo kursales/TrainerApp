@@ -93,13 +93,13 @@ class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListen
                             }
                         } else {
                             withContext(Dispatchers.Main) {
-                                Toast.makeText(view.context, "a workout with the same name already exists", Toast.LENGTH_SHORT)
+                                Toast.makeText(view.context, "Тренировка с таким именем уже существует", Toast.LENGTH_SHORT)
                                     .show()
                             }
                         }
                     }
                 } else {
-                    Toast.makeText(view.context, "Choose training days or input training name", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, "Выберите дней тренировки или введите имя", Toast.LENGTH_SHORT).show()
                 }
             }
         R.id.monday ->{
