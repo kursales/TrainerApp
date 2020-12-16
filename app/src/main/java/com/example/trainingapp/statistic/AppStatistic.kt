@@ -2,30 +2,27 @@ package com.example.trainingapp.statistic
 
 import com.example.trainingapp.db.Entity.CompleteExercise
 import com.example.trainingapp.db.repositories.CompleteExerciseRepository
+import com.example.trainingapp.db.repositories.NameTrainingRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
-class AppStatistic(val completeExerciseRepository: CompleteExerciseRepository) {
+class AppStatistic(val completeExerciseRepository: CompleteExerciseRepository, val nameTrainingRepository: NameTrainingRepository) {
     lateinit var allExercisees: List<CompleteExercise>
     var countList = mutableListOf(0, 0, 0, 0)
-    var favoriteEx = 0
     var max = 0
     var executeExercises = 0
 
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            executeExercises = getExecuteExercises()
-        }
-    }
+
 
     suspend fun getExecuteExercises(): Int {
         allExercisees = completeExerciseRepository.getAll()
-        return allExercisees.size
+        executeExercises = allExercisees.size
+        return executeExercises
     }
 
-    suspend fun getFavoriteExercise(): Int {
+    fun getFavoriteExercise(): Int {
         allExercisees.forEach {
             getExerciseCount(it.name)
         }
@@ -73,4 +70,35 @@ return String()
           else ->throw IllegalArgumentException()
       }
     }
+
+   suspend fun getTrainingCount(): Int{
+        return nameTrainingRepository.getAllTrainings().size
+    }
+
+    fun getMaxCount(): Pair<String, Int> {
+        var maxCount = 0
+        var key = ""
+        allExercisees.forEach {
+            if(it.count> maxCount){
+                maxCount = it.count
+                key = it.name
+            }
+        }
+        return Pair(key, maxCount)
+    }
+    fun getAllCount(): Int{
+        var sum = 0
+        allExercisees.forEach {
+            sum += it.count
+        }
+        return sum
+    }
+    fun getAverageCount(): Int{
+       return if(allExercisees.isNotEmpty()){
+            getAllCount()/allExercisees.size
+        }else{
+           0
+       }
+    }
+
 }

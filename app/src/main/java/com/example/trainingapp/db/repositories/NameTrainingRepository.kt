@@ -22,5 +22,5 @@ class NameTrainingRepository(private val db: Database) {
     }
     suspend fun getTraining(id: Long) = dao.getTraining(id)
 
-
+    suspend fun getAllTrainings() = dao.getAllTrainings()
 }

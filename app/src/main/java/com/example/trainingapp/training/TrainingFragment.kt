@@ -113,6 +113,7 @@ class TrainingFragment : Fragment(), View.OnClickListener {
 
 
                 } else {
+                    Toast.makeText(requireContext(), "Тренировка завершена", Toast.LENGTH_SHORT).show()
                     v.findNavController().navigate(R.id.mainFragment)
                 }
             }
