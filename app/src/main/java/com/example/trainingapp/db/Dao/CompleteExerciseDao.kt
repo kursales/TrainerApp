@@ -12,4 +12,7 @@ interface CompleteExerciseDao {
 
     @Query("SELECT*FROM COMPLETEEXERCISE WHERE name = :name")
     suspend fun getExercise(name: String): List<CompleteExercise>
+
+    @Query("SELECT*FROM COMPLETEEXERCISE")
+    suspend fun getAll():List<CompleteExercise>
 }

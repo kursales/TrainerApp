@@ -45,5 +45,10 @@
         android:id="@+id/timerDialog"
         android:name="com.example.trainingapp.training.TimerDialog"
         android:label="TimerDialog" />
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.trainingapp.statistic.StatisticFragment"
+        android:label="fragment_statistic"
+        tools:layout="@layout/fragment_statistic" />
 
 </navigation>

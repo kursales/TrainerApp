@@ -102,7 +102,7 @@ class TrainingFragment : Fragment(), View.OnClickListener {
                 comleteButton.text = "$count раз \n выполнено"
             }
             R.id.CompleteExercise -> {
-                if (cursor < traingList.size - 1) {
+                if (cursor < traingList.size) {
                     saveData(exercise)
                     cursor++
 

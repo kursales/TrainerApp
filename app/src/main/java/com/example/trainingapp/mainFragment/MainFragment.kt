@@ -21,6 +21,7 @@ import javax.inject.Inject
 class MainFragment : Fragment(), View.OnClickListener {
     lateinit var createTraining: Button
     lateinit var chooseTraining: Button
+    lateinit var statisticButton: Button
 
     @Inject
     lateinit var exerciseListRepository: ExerciseListRepository
@@ -33,9 +34,11 @@ class MainFragment : Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
         createTraining = view.findViewById(R.id.createTraining)
         chooseTraining = view.findViewById(R.id.chooseTraining)
+        statisticButton = view.findViewById(R.id.statisticTraining)
 
         createTraining.setOnClickListener(this)
         chooseTraining.setOnClickListener(this)
+        statisticButton.setOnClickListener(this)
 
         if(Prefs.firstStart()) {
             TrainingApp.component.injectMainFragment(this)
@@ -60,7 +63,9 @@ class MainFragment : Fragment(), View.OnClickListener {
             }
             R.id.chooseTraining -> {
                 view.findNavController().navigate(R.id.chooseTrainingFragment)
-
+            }
+            R.id.statisticTraining ->{
+                view.findNavController().navigate(R.id.statisticFragment)
             }
         }
     }

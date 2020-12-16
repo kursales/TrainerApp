@@ -9,4 +9,6 @@ class CompleteExerciseRepository(database: Database) {
         dao.insert(completeExercise)
     }
     suspend fun getExercise(name: String): List<CompleteExercise> = dao.getExercise(name)
+
+    suspend fun getAll(): List<CompleteExercise> = dao.getAll()
 }
