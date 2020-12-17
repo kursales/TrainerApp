@@ -1,5 +1,6 @@
 package com.example.trainingapp.chooseExercises
 
+import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -16,7 +17,11 @@ class ChooseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     fun bind(exercise: ExerciseList, chooseList:ArrayList<ExerciseList>) {
         name.text =  exercise.name
-        image.setImageResource(exercise.image)
+        if(exercise.path == null) {
+            image.setImageResource(exercise.image)
+        }else{
+            image.setImageBitmap(BitmapFactory.decodeFile(exercise.path))
+        }
         check.setOnClickListener{
             if(check.isChecked){
                 chooseList.add(exercise)

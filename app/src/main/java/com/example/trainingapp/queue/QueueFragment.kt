@@ -80,7 +80,8 @@ class QueueFragment : Fragment() {
                             exercise.image,
                             exercise.name,
                             exercise.training_id,
-                            adapter.adapterList.size + 1
+                            adapter.adapterList.size + 1,
+                            exercise.path
                         )
                         val id = exerciseRepository.insert(exercise1)
 

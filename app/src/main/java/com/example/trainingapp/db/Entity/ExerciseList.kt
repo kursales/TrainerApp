@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class ExerciseList(var name:String, var image:Int, val path: Long?){
+class ExerciseList(var name:String, var image:Int, val path: String?){
     @PrimaryKey(autoGenerate = true)
   var id = 0L
 

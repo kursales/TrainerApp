@@ -1,5 +1,6 @@
 package com.example.trainingapp.queue
 
+import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +22,11 @@ class QueueHolder(itemView: View, listener: (Int) -> Unit) : RecyclerView.ViewHo
     }
 
     fun bind(exerciseList: Exercise) {
-        image.setImageResource(exerciseList.image)
+        if(exerciseList.path == null) {
+            image.setImageResource(exerciseList.image)
+        }else{
+            image.setImageBitmap(BitmapFactory.decodeFile(exerciseList.path))
+        }
         name.text = exerciseList.name
 
     }

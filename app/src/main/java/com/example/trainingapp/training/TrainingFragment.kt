@@ -1,5 +1,6 @@
 package com.example.trainingapp.training
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -135,7 +136,11 @@ class TrainingFragment : Fragment(), View.OnClickListener {
                     count = statistic.getCount(exercise.name, average)
                      statisticList = statistic.getStatistic(exercise.name, trainingId)
                     withContext(Dispatchers.Main) {
-                        image.setImageResource(exercise.image)
+                        if (exercise.path == null) {
+                            image.setImageResource(exercise.image)
+                        }else{
+                            image.setImageBitmap(BitmapFactory.decodeFile(exercise.path))
+                        }
                         exerciseName.text = exercise.name
                         comleteButton.text = "$count раз \n выполнено"
                         maxCount.text = "Максимальное количество повторений: ${statisticList[0]}"

@@ -7,13 +7,12 @@ import androidx.room.RoomDatabase
 import com.example.trainingapp.db.Dao.*
 import com.example.trainingapp.db.Entity.*
 
-@Database(entities = [ExerciseList::class, Training::class, Exercise::class, CompleteExercise::class, FileImage::class], version = 1)
+@Database(entities = [ExerciseList::class, Training::class, Exercise::class, CompleteExercise::class], version = 1)
 abstract class Database:RoomDatabase()   {
     abstract fun exerciseListDao():ExerciseListDao
     abstract fun trainingDao():TrainingDao
     abstract fun exerciseDao():ExerciseDao
     abstract fun completeExerciseDao(): CompleteExerciseDao
-    abstract fun fileDao(): FileDao
 
 
     companion object {

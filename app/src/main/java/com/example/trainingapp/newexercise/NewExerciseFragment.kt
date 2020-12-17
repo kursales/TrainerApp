@@ -16,8 +16,8 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.trainingapp.R
 import com.example.trainingapp.core.TrainingApp
+import com.example.trainingapp.db.Entity.ExerciseList
 import com.example.trainingapp.db.repositories.ExerciseListRepository
-import com.example.trainingapp.db.repositories.FileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,10 +30,8 @@ class NewExerciseFragment : Fragment() {
     lateinit var editImage: ImageView
     lateinit var editName: EditText
     lateinit var createExercise: Button
-    var id = 0L
+    var id = ""
 
-    @Inject
-    lateinit var fileRepository: FileRepository
 
     @Inject
     lateinit var exerciseListRepository: ExerciseListRepository
@@ -62,10 +60,9 @@ class NewExerciseFragment : Fragment() {
                 )
             } else {
                 FilesDialog(requireContext(), 200f) { file ->
-                    image.setImageBitmap(BitmapFactory.decodeFile(file.absolutePath))
-                    CoroutineScope(Dispatchers.IO).launch {
-                   //   id = SaveImage.saveImage(file, fileRepository)
-                    }
+                    id = file.absolutePath
+                    image.setImageBitmap(BitmapFactory.decodeFile(id))
+
                 }.show()
             }
         }
@@ -73,7 +70,7 @@ class NewExerciseFragment : Fragment() {
         createExercise.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 if (editName.text.toString() != "" && checkName()) {
-                    SaveImage.saveExercise(editName.text.toString(), id, exerciseListRepository)
+                    exerciseListRepository.insert(ExerciseList(editName.text.toString(), R.drawable.ic_launcher_foreground, id))
                     withContext(Dispatchers.Main){
                         findNavController().navigate(R.id.mainFragment)
                     }

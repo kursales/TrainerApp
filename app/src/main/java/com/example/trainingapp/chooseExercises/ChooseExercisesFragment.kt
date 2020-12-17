@@ -73,7 +73,7 @@ class ChooseExercisesFragment : Fragment(), View.OnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 var queue = 0
                 adapter.chooseList.forEach { exercise ->
-                    exerciseRepository.insert(Exercise(exercise.image, exercise.name, trainingId, ++queue))
+                    exerciseRepository.insert(Exercise(exercise.image, exercise.name, trainingId, ++queue, exercise.path))
                 }
                 withContext(Dispatchers.Main) {
                     nextStep.findNavController().navigate(R.id.queueFragment)

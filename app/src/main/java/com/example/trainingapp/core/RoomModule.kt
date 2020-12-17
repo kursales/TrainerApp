@@ -18,8 +18,6 @@ class RoomModule {
     @Provides
     fun  completeExerciseRepository(database: Database): CompleteExerciseRepository = CompleteExerciseRepository(database)
 
-    @Provides
-    fun newExerciseRepository(database: Database) = FileRepository(database)
 
     @Provides
     fun getDatabase(): Database{
