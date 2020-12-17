@@ -70,7 +70,6 @@ class TrainingNameFragment : Fragment(), View.OnClickListener, BackPressedListen
         sunday.setOnClickListener(this)
 
         TrainingApp.component.injectNameFragment(this)
-
         Days.initDays()
         return view
     }

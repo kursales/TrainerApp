@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/customization_item_image"
+        android:layout_gravity="center_vertical"
+        android:layout_width="48dp"
+        android:layout_height="32dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"/>
+
+    <TextView
+        android:id="@+id/customization_item_text"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/customization_item_image"
+        android:layout_toEndOf="@+id/customization_item_image"
+        android:layout_toLeftOf="@+id/customization_item_edit"
+        android:layout_toStartOf="@+id/customization_item_edit"
+        android:textSize="24sp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:id="@+id/customization_item_edit"
+        android:src="@drawable/ic_edit"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"/>
+</RelativeLayout>

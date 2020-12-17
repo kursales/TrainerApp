@@ -50,5 +50,10 @@
         android:name="com.example.trainingapp.statistic.StatisticFragment"
         android:label="fragment_statistic"
         tools:layout="@layout/fragment_statistic" />
+    <fragment
+        android:id="@+id/newExerciseFragment"
+        android:name="com.example.trainingapp.newexercise.NewExerciseFragment"
+        android:label="fragment_new_exercise"
+        tools:layout="@layout/fragment_new_exercise" />
 
 </navigation>

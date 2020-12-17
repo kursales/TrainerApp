@@ -70,7 +70,7 @@ class TrainingFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         comleteButton = view.findViewById(R.id.CompleteExercise)
-        enlargeButton = view.findViewById(R.id.EnlargeCount)
+        enlargeButton = view.findViewById   (R.id.EnlargeCount)
         reduceButton = view.findViewById(R.id.ReduceCount)
         exerciseName = view.findViewById(R.id.TrainingFragment_ExerciseName)
         image = view.findViewById(R.id.trainingImage)

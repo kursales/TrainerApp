@@ -2,6 +2,7 @@ package com.example.trainingapp.core
 
 import com.example.trainingapp.chooseExercises.ChooseExercisesFragment
 import com.example.trainingapp.mainFragment.MainFragment
+import com.example.trainingapp.newexercise.NewExerciseFragment
 import com.example.trainingapp.queue.QueueFragment
 import com.example.trainingapp.statistic.StatisticFragment
 import com.example.trainingapp.training.TrainingFragment
@@ -16,4 +17,5 @@ interface AppComponent {
     fun injectQueueFragment(fragment: QueueFragment)
     fun injectTainingFrafment(fragment: TrainingFragment)
     fun injectStatisticFragment(fragment:StatisticFragment)
+    fun injectNewExercisefragment(fragment: NewExerciseFragment)
 }

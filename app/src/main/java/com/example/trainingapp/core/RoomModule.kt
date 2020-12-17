@@ -1,10 +1,7 @@
 package com.example.trainingapp.core
 
 import com.example.trainingapp.db.Database
-import com.example.trainingapp.db.repositories.CompleteExerciseRepository
-import com.example.trainingapp.db.repositories.ExerciseListRepository
-import com.example.trainingapp.db.repositories.ExerciseRepository
-import com.example.trainingapp.db.repositories.NameTrainingRepository
+import com.example.trainingapp.db.repositories.*
 import dagger.Module
 import dagger.Provides
 @Module
@@ -20,6 +17,9 @@ class RoomModule {
 
     @Provides
     fun  completeExerciseRepository(database: Database): CompleteExerciseRepository = CompleteExerciseRepository(database)
+
+    @Provides
+    fun newExerciseRepository(database: Database) = FileRepository(database)
 
     @Provides
     fun getDatabase(): Database{
